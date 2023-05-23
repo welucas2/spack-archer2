@@ -1,0 +1,59 @@
+compilers:
+- compiler:
+    spec: cce@=15.0.0
+    modules: [ PrgEnv-cray ]
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+
+
+- compiler:
+    spec: gcc@=11.2.0
+    modules: [ PrgEnv-gnu, gcc/11.2.0 ]
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+
+
+- compiler:
+    spec: gcc@=10.3.0
+    modules: [ PrgEnv-gnu, gcc/10.3.0 ]
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+
+
+- compiler:
+    spec: aocc@=3.2.0
+    modules: [ PrgEnv-gnu,aocc/3.2.0 ]
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: sles15
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
