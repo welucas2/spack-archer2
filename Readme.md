@@ -5,9 +5,10 @@ source ./spack/share/spack/setup-env.sh
 
 spack config add concretizer:reuse:false # will build from source instead of downloading the binaries.
 
-We put configuration files in `spack/spack/etc/spack`. 
+We put configuration files in `spack/etc/spack` from the `config` directory. 
+
 ```
-mv ~/.spack/linux/compilers.yaml ./spack/spack/etc/spack.
+ln -s config/compilers.yaml   ./spack/etc/spack/compilers.yaml
 ```
 
 ### Compilers
@@ -23,7 +24,13 @@ Tested by installing zlib with all different compilers.
 - FFTW
 - NETCDF
 
-
 ## Using spack
 
-You can use `spack find` to view installed packages. Se `spack find -h` for options.
+`spack find`:  to view installed packages. Se `spack find -h` for options.
+
+### Creating packages
+
+A template for a spack package can be created by typing
+```
+spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
+```
