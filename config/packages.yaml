@@ -1,0 +1,38 @@
+packages:
+  all:
+  # note the compiler and providers specifications
+  # only suggest a priority order, they do not exclude other options
+  # suggested priority for compilers.
+    compiler: [ gcc@11.2.0, cce@15.0.0, aocc@3.2.0 ]
+    providers:
+      mpi: [ cray-mpich ]
+    
+    permissions:
+      read: world
+      write: user
+
+# don't build virtuals with an external provider
+  mpi:
+    buildable: False
+  blas:
+    buildable: False
+  lapack:
+    buildable: False
+  scalapack:
+    buildable: False
+  fftw-api:
+    buildable: False
+
+  cray-mpich:
+    externals:
+    - spec: cray-mpich@8.1.23%gcc@11.2.0
+      modules:
+      - cray-mpich/8.1.23
+      - craype-network-ofi
+    - spec: cray-mpich@8.1.23%cce@15.0.0
+      modules:
+      - cray-mpich/8.1.23
+      - craype-network-ofi
+    
+    buildable: False
+
