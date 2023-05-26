@@ -16,6 +16,7 @@ ln -s config/compilers.yaml   ./spack/etc/spack/compilers.yaml
 Gnu, amd and cray compilers were configured with compiler wrappers. ( not currently using the bare compilers )
 Tested by installing zlib with all different compilers.
 
+
 ### Installing Cray libraries
 - MPI
 - BLAS 
@@ -24,9 +25,14 @@ Tested by installing zlib with all different compilers.
 - FFTW
 - NETCDF
 
+External packages trough 'packages.yaml' .
+Can describe module, but after spack load module list will not show the modules loaded by spack. However environment variables are properly updated
+
+
 ## Using spack
 
 `spack find`:  to view installed packages. Se `spack find -h` for options.
+`spack install` 
 
 ### Creating packages
 
