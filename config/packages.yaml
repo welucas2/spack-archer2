@@ -33,6 +33,11 @@ packages:
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
-    
+    - spec: cray-mpich@8.1.23%aocc@3.2.0
+      modules:
+      - cray-mpich/8.1.23
+      - craype-network-ofi
+
+
     buildable: False
 
