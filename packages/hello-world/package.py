@@ -24,20 +24,26 @@ from spack.package import *
 
 
 class HelloWorld(MakefilePackage):
-    """FIXME: Put a proper description of your package here."""
+    """ Hello World test package """
 
     # FIXME: Add a proper url for your package's homepage here.
-    homepage = "https://www.example.com"
-    url = "https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz"
+    homepage = "https://github.com/lucaparisi91/hello_world"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers("github_user1", "github_user2")
 
-    version("1.0", sha256="a85ab0fd5a09caf8b214ac3041c0e69fb3deb098b9a6464d1eff6cfe4d8e0510")
+    version("1.0", sha256="a85ab0fd5a09caf8b214ac3041c0e69fb3deb098b9a6464d1eff6cfe4d8e0510", url = "https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz")
 
-    # FIXME: Add dependencies if required.
-    # depends_on("foo")
+
+    version("2.0", sha256= "91dd03780d2cd9cf6c8905bea48c6f41ab160ba48555e642e54cf4818b6361d4", url = "https://github.com/lucaparisi91/hello_world/archive/refs/tags/v2.0.tar.gz", 
+     )
+
+    variant(
+        "mpi", default=False, description="Builds a MPI Hello World! example"
+    )
+    depends_on("mpi", when="+mpi")
+
 
     def edit(self, spec, prefix):
         # FIXME: Edit the Makefile if necessary
@@ -45,4 +51,7 @@ class HelloWorld(MakefilePackage):
         # makefile = FileFilter("Makefile")
         # makefile.filter("CC = .*", "CC = cc")
         env['PREFIX'] = prefix
-        pass
+
+        if "+mpi" in self.spec:
+            env["MPI"] = "TRUE" 
+        
