@@ -1,59 +1,54 @@
 compilers:
-- compiler:
-    spec: cce@=15.0.0
-    modules: [ PrgEnv-cray ]
-    paths:
-      cc: cc
-      cxx: CC
-      f77: ftn
-      fc: ftn
-    flags: {}
-    operating_system: sles15
-    target: x86_64
-    environment: {}
-    extra_rpaths: []
-
-
-- compiler:
-    spec: gcc@=11.2.0
-    modules: [ PrgEnv-gnu, gcc/11.2.0 ]
-    paths:
-      cc: cc
-      cxx: CC
-      f77: ftn
-      fc: ftn
-    flags: {}
-    operating_system: sles15
-    target: x86_64
-    environment: {}
-    extra_rpaths: []
-
-
-- compiler:
-    spec: gcc@=10.3.0
-    modules: [ PrgEnv-gnu, gcc/10.3.0 ]
-    paths:
-      cc: cc
-      cxx: CC
-      f77: ftn
-      fc: ftn
-    flags: {}
-    operating_system: sles15
-    target: x86_64
-    environment: {}
-    extra_rpaths: []
-
-
-- compiler:
-    spec: aocc@=3.2.0
-    modules: [ PrgEnv-gnu,aocc/3.2.0 ]
-    paths:
-      cc: cc
-      cxx: CC
-      f77: ftn
-      fc: ftn
-    flags: {}
-    operating_system: sles15
-    target: x86_64
-    environment: {}
-    extra_rpaths: []
+  - compiler:
+      spec: gcc@=11.2.0
+      modules: []
+      paths:
+        cc: /opt/cray/pe/gcc/11.2.0/bin/gcc
+        cxx: /opt/cray/pe/gcc/11.2.0/bin/g++
+        f77: /opt/cray/pe/gcc/11.2.0/bin/gfortran
+        fc: /opt/cray/pe/gcc/11.2.0/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: gcc@=10.3.0
+      modules: []
+      paths:
+        cc: /opt/cray/pe/gcc/10.3.0/bin/gcc
+        cxx: /opt/cray/pe/gcc/10.3.0/bin/g++
+        f77: /opt/cray/pe/gcc/10.3.0/bin/gfortran
+        fc: /opt/cray/pe/gcc/10.3.0/bin/gfortran
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: cce@=15.0.0
+      modules: [PrgEnv-cray]
+      paths:
+        cc: /opt/cray/pe/cce/15.0.0/bin/craycc
+        cxx: /opt/cray/pe/gcc/11.2.0/bin/craycxx
+        f77: /opt/cray/pe/cce/15.0.0/bin/crayftn
+        fc: /opt/cray/pe/cce/15.0.0/bin/crayftn
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      environment: {}
+      extra_rpaths: []
+  - compiler:
+      spec: aocc@=8.3.3
+      modules: [PrgEnv-cray]
+      paths:
+        cc: /opt/AMD/aocc-compiler-3.2.0/bin/clang
+        cxx: /opt/AMD/aocc-compiler-3.2.0/bin/clang++
+        f77: None
+        fc: None
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      environment: {}
+      extra_rpaths: []
+  

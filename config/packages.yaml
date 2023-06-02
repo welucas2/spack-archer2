@@ -3,10 +3,12 @@ packages:
   # note the compiler and providers specifications
   # only suggest a priority order, they do not exclude other options
   # suggested priority for compilers.
-    compiler: [ gcc@11.2.0, cce@15.0.0, aocc@3.2.0 ]
+    compiler: [ gcc@11.2.0]
     providers:
       mpi: [ cray-mpich ]
-    
+      pkgconfig: [ pkg-config ]
+
+
     permissions:
       read: world
       write: user
@@ -22,22 +24,46 @@ packages:
     buildable: False
   fftw-api:
     buildable: False
-
+  
+  netcdf-cxx:
+    buildable: False
+  netcdf-cxx4:
+    buildable: False
+  netcdf-c:
+    buildable: False
+  
   cray-mpich:
     externals:
     - spec: cray-mpich@8.1.23%gcc@11.2.0
       modules:
-      - cray-mpich/8.1.23
-      - craype-network-ofi
-    - spec: cray-mpich@8.1.23%cce@15.0.0
-      modules:
-      - cray-mpich/8.1.23
-      - craype-network-ofi
-    - spec: cray-mpich@8.1.23%aocc@3.2.0
-      modules:
+      - PrgEnv-gnu
       - cray-mpich/8.1.23
       - craype-network-ofi
 
 
+  hdf5:
+    externals:
+      - spec: hdf5@1.12.2.1%gcc@11.2.0+mpi
+        modules:
+          - cray-hdf5-parallel/1.12.2.1 
     buildable: False
 
+
+
+
+  pkg-config:
+    externals:
+    - spec: pkg-config@0.29.2
+      prefix: /usr
+    buildable: false
+  
+  libfabric:
+    externals:
+    - spec: libfabric@1.12.1.2.2.0.0
+      modules:
+      - libfabric/1.12.1.2.2.0.0
+      prefix: /opt/cray/libfabric/1.11.0.4.128
+    buildable: false
+  
+
+  
