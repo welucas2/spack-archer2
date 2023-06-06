@@ -50,8 +50,10 @@ class HelloWorld(MakefilePackage):
         # FIXME: If not needed delete this function
         # makefile = FileFilter("Makefile")
         # makefile.filter("CC = .*", "CC = cc")
-        env['PREFIX'] = prefix
+        env['PREFIX'] = prefix 
 
         if "+mpi" in self.spec:
-            env["MPI"] = "TRUE" 
-        
+            env["MPI"]="TRUE"
+            env["CXX"]="mpicxx"
+            env["CC"]="mpicc"
+            env["FC"]="mpifort"

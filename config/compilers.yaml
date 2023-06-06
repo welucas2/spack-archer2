@@ -27,10 +27,10 @@ compilers:
       extra_rpaths: []
   - compiler:
       spec: cce@=15.0.0
-      modules: [PrgEnv-cray]
+      modules: []
       paths:
         cc: /opt/cray/pe/cce/15.0.0/bin/craycc
-        cxx: /opt/cray/pe/gcc/11.2.0/bin/craycxx
+        cxx: /opt/cray/pe/cce/15.0.0/bin/craycxx
         f77: /opt/cray/pe/cce/15.0.0/bin/crayftn
         fc: /opt/cray/pe/cce/15.0.0/bin/crayftn
       flags: {}
@@ -40,7 +40,7 @@ compilers:
       extra_rpaths: []
   - compiler:
       spec: aocc@=8.3.3
-      modules: [PrgEnv-cray]
+      modules: []
       paths:
         cc: /opt/AMD/aocc-compiler-3.2.0/bin/clang
         cxx: /opt/AMD/aocc-compiler-3.2.0/bin/clang++

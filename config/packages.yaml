@@ -3,7 +3,7 @@ packages:
   # note the compiler and providers specifications
   # only suggest a priority order, they do not exclude other options
   # suggested priority for compilers.
-    compiler: [ gcc@11.2.0]
+    compiler: [ gcc@11.2.0, cce@15.0.0, gcc@10.3.0 ,aocc@3.2.0 ]
     providers:
       mpi: [ cray-mpich ]
       pkgconfig: [ pkg-config ]
@@ -29,27 +29,50 @@ packages:
     buildable: False
   netcdf-cxx4:
     buildable: False
+
+  
   netcdf-c:
+    externals:
+      - spec: netcdf-c@4.9.0+mpi%gcc@11.2.0
+        modules:
+          - PrgEnv-gnu
+          - cray-hdf5-parallel/1.12.2.1
+          - cray-netcdf-hdf5parallel 
+        prefix: /opt/cray/pe/netcdf-hdf5parallel/4.9.0.1/gnu/9.1
+  
     buildable: False
   
+
+  netcdf-fortran:
+    externals:
+      - spec: netcdf-fortran@4.5.4%gcc@11.2.0
+        modules:
+          - PrgEnv-gnu
+          - cray-hdf5-parallel/1.12.2.1
+          - cray-netcdf-hdf5parallel 
+        prefix: /opt/cray/pe/netcdf-hdf5parallel/4.9.0.1/gnu/9.1
+
+    buildable: False
+
+
+
   cray-mpich:
     externals:
     - spec: cray-mpich@8.1.23%gcc@11.2.0
       modules:
-      - PrgEnv-gnu
       - cray-mpich/8.1.23
       - craype-network-ofi
-
-
+      prefix: /opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1
+  
   hdf5:
     externals:
-      - spec: hdf5@1.12.2.1%gcc@11.2.0+mpi
+      - spec: hdf5@1.12.2.1+mpi%gcc@11.2.0
         modules:
+          - PrgEnv-gnu
           - cray-hdf5-parallel/1.12.2.1 
+        prefix: /opt/cray/pe/hdf5-parallel/1.12.2.1/gnu/9.1/
+  
     buildable: False
-
-
-
 
   pkg-config:
     externals:
@@ -63,7 +86,6 @@ packages:
       modules:
       - libfabric/1.12.1.2.2.0.0
       prefix: /opt/cray/libfabric/1.11.0.4.128
-    buildable: false
-  
+    buildable: False
 
   
