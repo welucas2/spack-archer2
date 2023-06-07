@@ -7,7 +7,7 @@ packages:
     providers:
       mpi: [ cray-mpich ]
       pkgconfig: [ pkg-config ]
-
+      fftw-api : [ cray-fftw ]
 
     permissions:
       read: world
@@ -87,5 +87,14 @@ packages:
       - libfabric/1.12.1.2.2.0.0
       prefix: /opt/cray/libfabric/1.11.0.4.128
     buildable: False
+  
 
+  cray-fftw:
+    externals:
+    - spec: cray-fftw@3.3.10.3
+      modules:
+      - craype-x86-rome
+      - cray-fftw/3.3.10.3
+      prefix: /opt/cray/pe/fftw/3.3.10.3/x86_rome
+    buildable: false
   
