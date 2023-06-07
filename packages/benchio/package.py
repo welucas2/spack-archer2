@@ -30,11 +30,11 @@ class Benchio(CMakePackage):
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers("github_user1", "github_user2")
-    
-    version("1.0.1", sha256="29626c577a1348e6df21450fdd84e2bb83f1f2901f02e5798f8901fa17cfbe8f", url = "https://github.com/lucaparisi91/benchio/archive/refs/tags/v1.0.1.tar.gz")
 
+    version("1.0.2", sha256="47ce424b7a2537850554925dc49aace7bbea46ee3a53d7e4ed74309b401cb657", url = "https://github.com/lucaparisi91/benchio/archive/refs/tags/v1.0.2.tar.gz")
 
     depends_on("mpi")
+
 
     variant(
         "hdf5", default=False, description="Performs an HDF5 write performance test"
@@ -47,21 +47,19 @@ class Benchio(CMakePackage):
     depends_on("netcdf-fortran",when="+netcdf")
 
     def cmake_args(self):
-        args=[]
 
-        if "hdf5" in self.spec:
+        args=[]
+        
+        if "+netcdf" in self.spec:
             args = args + [    
-                self.define("USE_HDF5", True),
+               "-DUSE_NETCDF=TRUE"
             ]
-        
-        if "netcdf" in self.spec:
+
+        if "+hdf5" in self.spec:
             args = args + [    
-                self.define("USE_NETCDF", True),
+               "-DUSE_HDF5=TRUE"
             ]
-        
-        
-        
-        
+
         return args
 
 

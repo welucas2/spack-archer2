@@ -11,6 +11,8 @@ We put configuration files in `spack/etc/spack` from the `config` directory.
 ln -s config/compilers.yaml   ./spack/etc/spack/compilers.yaml
 ```
 
+The config.yaml file has settings for where to save the cache, which needs to be set somewhere on the work folder. 
+
 ### Compilers
 
 Gnu, amd and cray compilers were configured with compiler wrappers. ( not currently using the bare compilers )
