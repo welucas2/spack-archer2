@@ -29,8 +29,18 @@ Using the bare compilers avoids the problem. With mpich you should specify the p
 - FFTW
 - NETCDF
 
-Spack load does not modify the environment except for PATH , LD_LIBRARY_PATH variables etc. However Cray does not rely much on those variables, and seems to mostly rely on pkg-config. However PKG_CONFIG_PATH is not updated by spack load.
-The module is fully loaded during the build environment.
+Typing in `spack load` will not be loading the modules. Thus the Cray compiler is not aware that a library has been loaded. Stantard environment paths are updated, such as PATH or LD_LIBRARY_PATH. 
+For instance in a GNU programming environment.
+
+```bash
+lparisi@uan01:/work/z19/z19/lparisi/spack> echo $LD_LIBRARY_PATH
+/opt/cray/pe/gcc/11.2.0/snos/lib64:/opt/cray/pe/papi/6.0.0.17/lib64:/opt/cray/libfabric/1.12.1.2.2.0.0/lib64
+lparisi@uan01:/work/z19/z19/lparisi/spack> spack load hdf5
+lparisi@uan01:/work/z19/z19/lparisi/spack> echo $LD_LIBRARY_PATH
+/opt/cray/pe/gcc/11.2.0/snos/lib64:/opt/cray/pe/papi/6.0.0.17/lib64:/opt/cray/libfabric/1.12.1.2.2.0.0/lib64:/opt/cray/pe/hdf5-parallel/1.12.2.1/gnu/9.1/lib
+lparisi@uan01:/work/z19/z19/lparisi/spack> module list 2>&1  | grep -i --color hdf5
+lparisi@uan01:/work/z19/z19/lparisi/spack> 
+```
 
 ## Using spack
 

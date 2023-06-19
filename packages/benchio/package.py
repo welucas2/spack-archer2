@@ -31,10 +31,9 @@ class Benchio(CMakePackage):
     # notify when the package is updated.
     # maintainers("github_user1", "github_user2")
 
-    version("1.0.2", sha256="47ce424b7a2537850554925dc49aace7bbea46ee3a53d7e4ed74309b401cb657", url = "https://github.com/lucaparisi91/benchio/archive/refs/tags/v1.0.2.tar.gz")
+    version("1.0.5",  sha256="7e6cfb0c13f0b9c8fbab877ca1350bf41a41cb5fa3f557f52f72d1d13127d842", url = "https://github.com/lucaparisi91/benchio/archive/refs/tags/1.0.5.tar.gz")
 
     depends_on("mpi")
-
 
     variant(
         "hdf5", default=False, description="Performs an HDF5 write performance test"
@@ -42,9 +41,14 @@ class Benchio(CMakePackage):
     variant(
         "netcdf", default=False, description="Performs a NETCDF write performance test"
     )
+    variant(
+        "adios2", default=False, description="Performs a ADIOS2 write performance test"
+    )
 
     depends_on("hdf5+mpi",when="+hdf5")
     depends_on("netcdf-fortran",when="+netcdf")
+    depends_on("adios2",when="+adios2")
+    
 
     def cmake_args(self):
 
@@ -59,6 +63,11 @@ class Benchio(CMakePackage):
             args = args + [    
                "-DUSE_HDF5=TRUE"
             ]
+        if "+adios2" in self.spec:
+            args = args + [    
+               "-DUSE_ADIOS2=TRUE"
+            ]
+        
 
         return args
 
