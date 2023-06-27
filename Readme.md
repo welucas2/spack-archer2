@@ -20,7 +20,6 @@ Tested by installing zlib with all different compilers.
 When using hdf5 spack links to all hdf5 implementations instead of just the one with the selected compiler. This is because spacks call a wrapper on the Cray wrapper and flags get mangled.  
 Using the bare compilers avoids the problem. With mpich you should specify the prefix of the installation or it gets it wrong.
 
-
 ### Installing Cray libraries
 - MPI
 - BLAS 
@@ -45,20 +44,11 @@ lparisi@uan01:/work/z19/z19/lparisi/spack>
 ## Using spack
 
 `spack find`:  to view installed packages. Se `spack find -h` for options.
-`spack install` 
+`spack install ${SPEC}` to install a specifick package name. A list of packages available on spack can be obtained with `spack list`. 
 
 ### Creating packages
 
-A template for a spack package can be created by typing
+A scaffold for a spack package can be created by typing
 ```
 spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
 ```
-
-
-# Notes
-
-You can use ftn --verbose to see the actual build commands which are invoked by the Cray wrapper.
-
-# Tests
-
-- install zlib with all compilers
