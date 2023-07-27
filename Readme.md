@@ -1,36 +1,32 @@
-## Configuration of spack
-
+## Installation of spack
+You can install spack by typing
+```
 git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-source ./spack/share/spack/setup-env.sh
-
-spack config add concretizer:reuse:false # will build from source instead of downloading the binaries.
-
-We put configuration files in `spack/etc/spack` from the `config` directory.
-
 ```
-ln -s config/compilers.yaml   ./spack/etc/spack/compilers.yaml
-```
+and then can use `source ./spack/share/spack/setup-env.sh` to setup the spack environment.
 
-The config.yaml file has settings for where to save the cache, which needs to be set somewhere on the work folder. 
+to see the available spack compilers.
+## Configuration of spack
+Using `spack config add concretizer:reuse:false` spack will build from source instead of downloading binaries, even if available.
+We put configuration files in the `config` directory.
+The directory containing configuration files can be specified with the `-C` option. For instance you could type the command
+```
+spack -C $CONFIG_DIR compilers
+```
+A wrapper script is present in `/bin`. The environment can be setup using
+```
+source source.sh
+```
+You will need to edit `SPACK_ROOT_EPCC`, the path of this directory, and `SPACK_ROOT`, the path where spack is installed in the `source.sh` file.
 
 ### Compilers
-
-Gnu, amd and cray compilers were configured with compiler wrappers. ( not currently using the bare compilers )
-Tested by installing zlib with all different compilers.
-When using hdf5 spack links to all hdf5 implementations instead of just the one with the selected compiler. This is because spacks call a wrapper on the Cray wrapper and flags get mangled.  
-Using the bare compilers avoids the problem. With mpich you should specify the prefix of the installation or it gets it wrong.
-
+Gnu, amd and cray compilers were configured with the bare compilers, instead of pointing to the Cray wrappers.
+This is because spacks would call a wrapper on the Cray wrapper and flags can get get mangled. Using the bare compilers avoids the problem.
+The `compilers.yaml` file contains the compiler configuration.
 ### Installing Cray libraries
-- MPI
-- BLAS 
-- LAPACK
-- HDF5
-- FFTW
-- NETCDF
-
-Typing in `spack load` will not be loading the modules. Thus the Cray compiler is not aware that a library has been loaded. Stantard environment paths are updated, such as PATH or LD_LIBRARY_PATH. 
+The Cray libraries for MPI,BLAS, LAPACK, HDF5, FFTW, NETCDF have been configured in the `package.json` configuration file.
+Typing in `spack load` will not be loading the cray modules. Thus the Cray compiler is not aware that a library has been loaded. However stantard environment paths are updated, such as `PATH` or `LD_LIBRARY_PATH`. 
 For instance in a GNU programming environment.
-
 ```bash
 lparisi@uan01:/work/z19/z19/lparisi/spack> echo $LD_LIBRARY_PATH
 /opt/cray/pe/gcc/11.2.0/snos/lib64:/opt/cray/pe/papi/6.0.0.17/lib64:/opt/cray/libfabric/1.12.1.2.2.0.0/lib64
@@ -44,7 +40,7 @@ lparisi@uan01:/work/z19/z19/lparisi/spack>
 ## Using spack
 
 `spack find`:  to view installed packages. Se `spack find -h` for options.
-`spack install ${SPEC}` to install a specifick package name. A list of packages available on spack can be obtained with `spack list`. 
+`spack install ${SPEC}` to install a specifick package name. A list of packages which can be installed with spack can be obtained with `spack list`.
 
 ### Creating packages
 
@@ -52,3 +48,4 @@ A scaffold for a spack package can be created by typing
 ```
 spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
 ```
+A few examples can be found in the `packages` subdirectory.
