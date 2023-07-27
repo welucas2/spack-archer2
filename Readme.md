@@ -23,7 +23,7 @@ You will need to edit `SPACK_ROOT_EPCC`, the path of this directory, and `SPACK_
 Gnu, amd and cray compilers were configured with the bare compilers, instead of pointing to the Cray wrappers.
 This is because spacks would call a wrapper on the Cray wrapper and flags can get get mangled. Using the bare compilers avoids the problem.
 The `compilers.yaml` file contains the compiler configuration.
-### Installing Cray libraries
+### Libraries
 The Cray libraries for MPI,BLAS, LAPACK, HDF5, FFTW, NETCDF have been configured in the `package.json` configuration file.
 Typing in `spack load` will not be loading the cray modules. Thus the Cray compiler is not aware that a library has been loaded. However stantard environment paths are updated, such as `PATH` or `LD_LIBRARY_PATH`. 
 For instance in a GNU programming environment.
@@ -49,3 +49,8 @@ A scaffold for a spack package can be created by typing
 spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
 ```
 A few examples can be found in the `packages` subdirectory.
+
+### Issues
+
+The config seems to work but not all packages work in all condistions. For instance, using gcc Gromacs and Lammps work. However bezel will fail with a segmentation fault during compilation, py-torch fails becuase cmake cannot find the BLAS libraries. Lammps+python fails as well.
+These errors may need to be fixed by modifying the packages, instead of the general spack config.
