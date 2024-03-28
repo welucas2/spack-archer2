@@ -180,7 +180,7 @@ packages:
       - cray-fftw/3.3.10.3
       prefix: /opt/cray/pe/fftw/3.3.10.3/x86_rome
     buildable: false
-  
+
 
   cray-libsci:
     externals:
@@ -196,7 +196,9 @@ packages:
       modules:
       - cray-libsci/22.12.1.1
       prefix: /opt/cray/pe/libsci/22.12.1.1/AOCC/2.0/x86_64
-  
+ 
+
+
   python:
     externals:
      - spec: python@3.9.13.1
