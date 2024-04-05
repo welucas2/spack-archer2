@@ -1,1 +1,0 @@
-$SPACK_ROOT/bin/spack -C $SPACK_ROOT_EPCC/config ${@:1}
