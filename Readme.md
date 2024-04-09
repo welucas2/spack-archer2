@@ -1,7 +1,6 @@
 # Spack
 This repo contains the configuration, build and run instructions for the spack installation on Archer2.
 
-
 ## Using spack
 
 ### Loading spack
@@ -29,19 +28,19 @@ source $SPACK_ROOT_EPCC/source.sh
 
 ### Useful commands
 
-`spack find`:  view installed packages. Se `spack find -h` for options.
-`spack install ${SPEC}` : to install a specifick package name.
-`spack compilers` : show availabe compilers
-`spack list ` : shows all packages available in the repository
+- `spack find`:  view installed packages. See `spack find -h` for options.
+- `spack install ${SPEC}` : to install a specifick package name.
+- `spack compilers` : show availabe compilers
+- `spack list ` : shows all packages available in the repository
 
 ### Creating packages
 
 A scaffold for a spack package can be created by typing
-```
+
+```bash
 spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
 ```
 A few examples can be found in the `custom_packages` subdirectory.
-
 
 ## Installation of spack
 
@@ -98,13 +97,13 @@ You will also need to point the user installation to the central installation by
 
 These configuration can be overriden by the user by calling spack with `-C custom_config_folder` option, where `custom_config_folder` is a directory containing `.yaml` configuration files for spack.
 
-
+The archer2repo folder contains patches for broken packages on Archer2. Currently ( 09-04-24 ) a patch to cmake ( to findBlas.cmake , so that libsci is recognized ) and to quantum espresso are present.
 
 
 ## Verified software
 The current status of spack packages.
 
-software | spack package | builds | run  | compiler
+software | spack package | builds | runs  | compiler
 ------- | --------| -------- | --------- | -------- |
 CASTEP | No  | | |
 Code_Saturne | No | | |
