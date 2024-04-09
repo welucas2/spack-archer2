@@ -1,52 +1,91 @@
+# Spack
+
+
+
 ## Installation of spack
-You can install spack by typing
-```
-git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-```
-and then can use `source ./spack/share/spack/setup-env.sh` to setup the spack environment.
 
-to see the available spack compilers.
-
-## Configuration of spack
-Using `spack config add concretizer:reuse:false` spack will build from source instead of downloading binaries, even if available.
-We put configuration files in the `config` directory.
-The directory containing configuration files can be specified with the `-C` option. For instance you could type the command
-```
-spack -C $CONFIG_DIR compilers
-```
-Alternatively you can copy the configuration files in `config` to `spack/etc/spack`. This will override builtin configuration files,
-but not user configuration files.
-```
-source source.sh
-```
-You will need to edit `SPACK_ROOT_EPCC`, the path of this directory, and `SPACK_ROOT`, the path where spack is installed in the `source.sh` file.
-
-Bootstrap files are saved in the home directory. This can be changed with the command `spack bootstrap root ${BOOTSTRAP_FOLDER}`.
-
-
-### Compilers
-Gnu, amd and cray compilers were configured with the bare compilers, instead of pointing to the Cray wrappers.
-This is because spacks would call a wrapper on the Cray wrapper and flags can get get mangled. Using the bare compilers avoids the problem.
-The `compilers.yaml` file contains the compiler configuration.
-### Libraries
-The Cray libraries for MPI,BLAS, LAPACK, HDF5, FFTW, NETCDF have been configured in the `package.json` configuration file.
-Typing in `spack load` will not be loading the cray modules. Thus the Cray compiler is not aware that a library has been loaded. However stantard environment paths are updated, such as `PATH` or `LD_LIBRARY_PATH`. 
-For instance in a GNU programming environment.
+Fir set the environmet variable to the folder where you want to install spack
 
 ```bash
-lparisi@uan01:/work/z19/z19/lparisi/spack> echo $LD_LIBRARY_PATH
-/opt/cray/pe/gcc/11.2.0/snos/lib64:/opt/cray/pe/papi/6.0.0.17/lib64:/opt/cray/libfabric/1.12.1.2.2.0.0/lib64
-lparisi@uan01:/work/z19/z19/lparisi/spack> spack load hdf5
-lparisi@uan01:/work/z19/z19/lparisi/spack> echo $LD_LIBRARY_PATH
-/opt/cray/pe/gcc/11.2.0/snos/lib64:/opt/cray/pe/papi/6.0.0.17/lib64:/opt/cray/libfabric/1.12.1.2.2.0.0/lib64:/opt/cray/pe/hdf5-parallel/1.12.2.1/gnu/9.1/lib
-lparisi@uan01:/work/z19/z19/lparisi/spack> module list 2>&1  | grep -i --color hdf5
-lparisi@uan01:/work/z19/z19/lparisi/spack> 
+export `${SPACK_ROOT_EPCC}=... root directory of the spack installation ...`
 ```
 
-## Using spack
+Then install spack with
 
-`spack find`:  to view installed packages. Se `spack find -h` for options.
-`spack install ${SPEC}` to install a specifick package name. A list of packages which can be installed with spack can be obtained with `spack list`.
+```bash
+wget https://github.com/spack/spack/archive/refs/tags/v0.21.2.tar.gz
+tar -zxvf v0.21.2.tar.gz
+```
+
+This will create a folder called spack-v0.21.2 in your installation directory. Set an environment variable which points to this folder .
+
+```bash
+export `${SPACK_ROOT}=${SPACK_ROOT_EPCC}/spack-v0.21.2`
+``
+
+You can now use `source $SPACK_ROOT/share/spack/setup-env.sh` to setup the spack environment. 
+
+### Configuration of spack
+
+These repo contsin configurations for two installations of spack
+
+1. A centrally available installation. All packages installed trough spack with this config will be saved in a centralled saved directory on `y07` . This installation is meant to be used by cse only to provide centrally installed packages to other users. The installation can be loaded using `module load spack-epcc`. The configuration files are present in the `central_install` subdirectory.
+
+2. A user installation. All packages installated trough spack will be installed in a local directory for the user. By default this will be in `/work/<project>/<project>/<user>/.spack` . This installation points to the central installation and all packes installed in the central installation are available as well. The configuration files are present in the `user_install` subdirectory.
+
+For installing the central installation, you will need to copy the contents of the files to `${SPACK_ROOT_EPCC}` and the content of `config` subdirectory to `${SPACK_ROOT}/etc/spack`.
+
+```bash
+cp -r  config/*.yaml ${SPACK_ROOT}/etc/spack
+cp -r archer2repo ${SPACK_ROOT_EPCC}
+cp source.sh ${SPACK_ROOT_EPCC}
+cp -r environments ${SPACK_ROOT_EPCC}
+```
+
+To set the proper environment, source the `source.sh` file
+
+```bash
+source ${SPACK_ROOT_EPCC}/source.sh
+```
+
+These will make use of the `${SPACK_ROOT_EPCC}` and `${SPACK_ROOT}` environment variables.
+
+In order to create the user installation repeat the whole installation and configuration process, but in a different `${SPACK_ROOT_EPCC}` folder and use the `user_install` configuration files instead of `central_install`.
+You will also need to point the user installation to the central installation by modifying the `upstreams.yaml` file in the `user_install/config` subdirectory.
+
+
+
+These configuration can be overriden by the user by calling spack with `-C custom_config_folder` option, where `custom_config_folder` is a directory containing `.yaml` configuration files for spack.
+
+## Using spack
+### Loading spack
+The modules are installed as development modules on archer2.
+```bash
+module use /work/y07/shared/archer2-lmod/apps/dev
+```
+
+The user spack module can be loaded with 
+
+```bash
+module load spack
+```
+while the central cse module ( for installing centraly supported packages ) can be loaded with 
+
+```bash
+module load spack-epcc
+```
+You will also need to source the spack environment with 
+
+```bash
+source $SPACK_ROOT_EPCC/source.sh
+```
+
+### Useful commands
+
+`spack find`:  view installed packages. Se `spack find -h` for options.
+`spack install ${SPEC}` : to install a specifick package name.
+`spack compilers` : show availabe compilers
+`spack list ` : shows all packages available in the repository
 
 ### Creating packages
 
@@ -54,13 +93,12 @@ A scaffold for a spack package can be created by typing
 ```
 spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
 ```
-A few examples can be found in the `packages` subdirectory.
+A few examples can be found in the `custom_packages` subdirectory.
 
-### CMake 
-
-I have prepared a patched version of CMake. This version should be able to find Blas and Lapack. The patch will only work on Cray systems.
 
 ## Verified software
+The current status of spack packages.
+
 software | spack package | builds | run  | compiler
 ------- | --------| -------- | --------- |
 CASTEP | No  | | |
