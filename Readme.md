@@ -1,5 +1,46 @@
 # Spack
+This repo contains the configuration, build and run instructions for the spack installation on Archer2.
 
+
+## Using spack
+
+### Loading spack
+The modules are installed as development modules on archer2.
+
+```bash
+module use /work/y07/shared/archer2-lmod/apps/dev
+```
+
+The user spack module can be loaded with 
+
+```bash
+module load spack
+```
+while the central cse module ( for installing centraly supported packages ) can be loaded with 
+
+```bash
+module load spack-epcc
+```
+You will also need to source the spack environment with 
+
+```bash
+source $SPACK_ROOT_EPCC/source.sh
+```
+
+### Useful commands
+
+`spack find`:  view installed packages. Se `spack find -h` for options.
+`spack install ${SPEC}` : to install a specifick package name.
+`spack compilers` : show availabe compilers
+`spack list ` : shows all packages available in the repository
+
+### Creating packages
+
+A scaffold for a spack package can be created by typing
+```
+spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
+```
+A few examples can be found in the `custom_packages` subdirectory.
 
 
 ## Installation of spack
@@ -57,43 +98,7 @@ You will also need to point the user installation to the central installation by
 
 These configuration can be overriden by the user by calling spack with `-C custom_config_folder` option, where `custom_config_folder` is a directory containing `.yaml` configuration files for spack.
 
-## Using spack
-### Loading spack
-The modules are installed as development modules on archer2.
-```bash
-module use /work/y07/shared/archer2-lmod/apps/dev
-```
 
-The user spack module can be loaded with 
-
-```bash
-module load spack
-```
-while the central cse module ( for installing centraly supported packages ) can be loaded with 
-
-```bash
-module load spack-epcc
-```
-You will also need to source the spack environment with 
-
-```bash
-source $SPACK_ROOT_EPCC/source.sh
-```
-
-### Useful commands
-
-`spack find`:  view installed packages. Se `spack find -h` for options.
-`spack install ${SPEC}` : to install a specifick package name.
-`spack compilers` : show availabe compilers
-`spack list ` : shows all packages available in the repository
-
-### Creating packages
-
-A scaffold for a spack package can be created by typing
-```
-spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
-```
-A few examples can be found in the `custom_packages` subdirectory.
 
 
 ## Verified software
@@ -114,13 +119,13 @@ nemo | No | | | |
 nwchem | Yes | | | |
 onetep | no  | | | |
 openfoam | Yes | Yes | | |
-quantum espresso | Yes | Yes ( patched ) | | | gnu
+quantum espresso | Yes | Yes ( patched ) | Yes| gnu
 vasp | yes | | |
 crystal | no  | | |
 petsc | | |
 scotch | Yes | |
 trilinos | | |
 parmetis | | |
-pytorch | Yes | no ( metadata generation failed) | | |
+pytorch | Yes | no ( metadata generation failed) | | gnu |
 tensorflow | | | | |
 
