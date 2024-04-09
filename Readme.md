@@ -21,7 +21,7 @@ This will create a folder called spack-v0.21.2 in your installation directory. S
 
 ```bash
 export `${SPACK_ROOT}=${SPACK_ROOT_EPCC}/spack-v0.21.2`
-``
+```
 
 You can now use `source $SPACK_ROOT/share/spack/setup-env.sh` to setup the spack environment. 
 
@@ -100,7 +100,7 @@ A few examples can be found in the `custom_packages` subdirectory.
 The current status of spack packages.
 
 software | spack package | builds | run  | compiler
-------- | --------| -------- | --------- |
+------- | --------| -------- | --------- | -------- |
 CASTEP | No  | | |
 Code_Saturne | No | | |
 CP2K | Yes | Yes | |
@@ -123,3 +123,4 @@ trilinos | | |
 parmetis | | |
 pytorch | Yes | no ( metadata generation failed) | | |
 tensorflow | | | | |
+
