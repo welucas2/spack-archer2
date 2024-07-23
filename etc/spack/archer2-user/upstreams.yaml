@@ -1,4 +1,4 @@
 upstreams:
     spack-epcc:
-          install_tree: /mnt/lustre/a2fs-nvme/work/y07/shared/spack/0.21.2/spack-epcc/spack-0.21.2/opt/spack/
+          install_tree: /mnt/lustre/a2fs-nvme/work/y07/shared/apps/dev/spack/0.21.2/opt/spack/
 
