@@ -11,5 +11,5 @@
 #   ~/.spack/repos.yaml
 # -------------------------------------------------------------------------
 repos:
-  - $spack/../archer2repo
+  - $spack/var/spack/repos/archer2
   - $spack/var/spack/repos/builtin
