@@ -39,7 +39,7 @@ compilers:
       environment: {}
       extra_rpaths: []
   - compiler:
-      spec: aocc@=8.3.3
+      spec: aocc@=3.2.0
       modules: []
       paths:
         cc: /opt/AMD/aocc-compiler-3.2.0/bin/clang
@@ -51,4 +51,17 @@ compilers:
       target: x86_64
       environment: {}
       extra_rpaths: []
-  
+  - compiler:
+      spec: aocc@=4.0.0
+      modules: []
+      paths:
+        cc: /opt/AMD/aocc-compiler-4.0.0/bin/clang
+        cxx: /opt/AMD/aocc-compiler-4.0.0/bin/clang++
+        f77: None
+        fc: None
+      flags: {}
+      operating_system: sles15
+      target: x86_64
+      environment: {}
+      extra_rpaths: []
+
