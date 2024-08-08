@@ -22,10 +22,6 @@ class Castep(CMakePackage):
 
     maintainers("NMannall")
 
-    # FIXME: Add the SPDX identifier of the project's license below.
-    # See https://spdx.org/licenses/ for a list.
-    license("UNKNOWN")
-
     version("24.1", sha256="97d77a4f3ce3f5c5b87e812f15a2c2cb23918acd7034c91a872b6d66ea0f7dbb")
 
     depends_on("cray-fftw")
