@@ -1,154 +1,130 @@
-# <img src="https://cdn.rawgit.com/spack/spack/develop/share/spack/logo/spack-logo.svg" width="64" valign="middle" alt="Spack"/> Spack
+# Spack
+This repo contains the configuration, build and run instructions for the spack installation on Archer2.
 
-[![Unit Tests](https://github.com/spack/spack/workflows/linux%20tests/badge.svg)](https://github.com/spack/spack/actions)
-[![Bootstrapping](https://github.com/spack/spack/actions/workflows/bootstrap.yml/badge.svg)](https://github.com/spack/spack/actions/workflows/bootstrap.yml)
-[![codecov](https://codecov.io/gh/spack/spack/branch/develop/graph/badge.svg)](https://codecov.io/gh/spack/spack)
-[![Containers](https://github.com/spack/spack/actions/workflows/build-containers.yml/badge.svg)](https://github.com/spack/spack/actions/workflows/build-containers.yml)
-[![Read the Docs](https://readthedocs.org/projects/spack/badge/?version=latest)](https://spack.readthedocs.io)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Slack](https://slack.spack.io/badge.svg)](https://slack.spack.io)
-[![Matrix](https://img.shields.io/matrix/spack-space%3Amatrix.org?label=Matrix)](https://matrix.to/#/#spack-space:matrix.org)
+## Using spack
 
-Spack is a multi-platform package manager that builds and installs
-multiple versions and configurations of software. It works on Linux,
-macOS, and many supercomputers. Spack is non-destructive: installing a
-new version of a package does not break existing installations, so many
-configurations of the same package can coexist.
+### Loading spack
+The modules are installed as development modules on archer2.
 
-Spack offers a simple "spec" syntax that allows users to specify versions
-and configuration options. Package files are written in pure Python, and
-specs allow package authors to write a single script for many different
-builds of the same package.  With Spack, you can build your software
-*all* the ways you want to.
+```bash
+module use /work/y07/shared/archer2-lmod/apps/dev
+```
 
-See the
-[Feature Overview](https://spack.readthedocs.io/en/latest/features.html)
-for examples and highlights.
+The user spack module can be loaded with 
 
-To install spack and your first package, make sure you have Python.
-Then:
+```bash
+module load spack
+```
+while the central cse module ( for installing centraly supported packages ) can be loaded with 
 
-    $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-    $ cd spack/bin
-    $ ./spack install zlib
+```bash
+module load spack-epcc
+```
+You will also need to source the spack environment with 
 
-Documentation
-----------------
+```bash
+source $SPACK_ROOT_EPCC/source.sh
+```
 
-[**Full documentation**](https://spack.readthedocs.io/) is available, or
-run `spack help` or `spack help --all`.
+### Useful commands
 
-For a cheat sheet on Spack syntax, run `spack help --spec`.
+- `spack find`:  view installed packages. See `spack find -h` for options.
+- `spack install ${SPEC}` : to install a specifick package name.
+- `spack compilers` : show availabe compilers
+- `spack list ` : shows all packages available in the repository
 
-Tutorial
-----------------
+### Creating packages
 
-We maintain a
-[**hands-on tutorial**](https://spack.readthedocs.io/en/latest/tutorial.html).
-It covers basic to advanced usage, packaging, developer features, and large HPC
-deployments.  You can do all of the exercises on your own laptop using a
-Docker container.
+A scaffold for a spack package can be created by typing
 
-Feel free to use these materials to teach users at your organization
-about Spack.
+```bash
+spack create --force --name hello_world https://github.com/lucaparisi91/hello_world/archive/refs/tags/v1.0.tar.gz
+```
+A few examples can be found in the `custom_packages` subdirectory.
 
-Community
-------------------------
+## Installation of spack
 
-Spack is an open source project.  Questions, discussion, and
-contributions are welcome. Contributions can be anything from new
-packages to bugfixes, documentation, or even new core features.
+Fir set the environmet variable to the folder where you want to install spack
 
-Resources:
+```bash
+export `${SPACK_ROOT_EPCC}=... root directory of the spack installation ...`
+```
 
-* **Slack workspace**: [spackpm.slack.com](https://spackpm.slack.com).
-  To get an invitation, visit [slack.spack.io](https://slack.spack.io).
-* **Matrix space**: [#spack-space:matrix.org](https://matrix.to/#/#spack-space:matrix.org):
-  [bridged](https://github.com/matrix-org/matrix-appservice-slack#matrix-appservice-slack) to Slack.
-* [**Github Discussions**](https://github.com/spack/spack/discussions):
-  not just for discussions, but also Q&A.
-* **Mailing list**: [groups.google.com/d/forum/spack](https://groups.google.com/d/forum/spack)
-* **Twitter**: [@spackpm](https://twitter.com/spackpm). Be sure to
-  `@mention` us!
+Then install spack with
 
-Contributing
-------------------------
-Contributing to Spack is relatively easy.  Just send us a
-[pull request](https://help.github.com/articles/using-pull-requests/).
-When you send your request, make ``develop`` the destination branch on the
-[Spack repository](https://github.com/spack/spack).
+```bash
+wget https://github.com/spack/spack/archive/refs/tags/v0.21.2.tar.gz
+tar -zxvf v0.21.2.tar.gz
+```
 
-Your PR must pass Spack's unit tests and documentation tests, and must be
-[PEP 8](https://www.python.org/dev/peps/pep-0008/) compliant.  We enforce
-these guidelines with our CI process. To run these tests locally, and for
-helpful tips on git, see our
-[Contribution Guide](https://spack.readthedocs.io/en/latest/contribution_guide.html).
+This will create a folder called spack-v0.21.2 in your installation directory. Set an environment variable which points to this folder .
 
-Spack's `develop` branch has the latest contributions. Pull requests
-should target `develop`, and users who want the latest package versions,
-features, etc. can use `develop`.
+```bash
+export `${SPACK_ROOT}=${SPACK_ROOT_EPCC}/spack-v0.21.2`
+```
 
-Releases
---------
+You can now use `source $SPACK_ROOT/share/spack/setup-env.sh` to setup the spack environment. 
 
-For multi-user site deployments or other use cases that need very stable
-software installations, we recommend using Spack's
-[stable releases](https://github.com/spack/spack/releases).
+### Configuration of spack
 
-Each Spack release series also has a corresponding branch, e.g.
-`releases/v0.14` has `0.14.x` versions of Spack, and `releases/v0.13` has
-`0.13.x` versions. We backport important bug fixes to these branches but
-we do not advance the package versions or make other changes that would
-change the way Spack concretizes dependencies within a release branch.
-So, you can base your Spack deployment on a release branch and `git pull`
-to get fixes, without the package churn that comes with `develop`.
+These repo contsin configurations for two installations of spack
 
-The latest release is always available with the `releases/latest` tag.
+1. A centrally available installation. All packages installed trough spack with this config will be saved in a centralled saved directory on `y07` . This installation is meant to be used by cse only to provide centrally installed packages to other users. The installation can be loaded using `module load spack-epcc`. The configuration files are present in the `central_install` subdirectory.
 
-See the [docs on releases](https://spack.readthedocs.io/en/latest/developer_guide.html#releases)
-for more details.
+2. A user installation. All packages installated trough spack will be installed in a local directory for the user. By default this will be in `/work/<project>/<project>/<user>/.spack` . This installation points to the central installation and all packes installed in the central installation are available as well. The configuration files are present in the `user_install` subdirectory.
 
-Code of Conduct
-------------------------
+For installing the central installation, you will need to copy the contents of the files to `${SPACK_ROOT_EPCC}` and the content of `config` subdirectory to `${SPACK_ROOT}/etc/spack`.
 
-Please note that Spack has a
-[**Code of Conduct**](.github/CODE_OF_CONDUCT.md). By participating in
-the Spack community, you agree to abide by its rules.
+```bash
+cp -r  config/*.yaml ${SPACK_ROOT}/etc/spack
+cp -r archer2repo ${SPACK_ROOT_EPCC}
+cp source.sh ${SPACK_ROOT_EPCC}
+cp -r environments ${SPACK_ROOT_EPCC}
+```
 
-Authors
-----------------
-Many thanks go to Spack's [contributors](https://github.com/spack/spack/graphs/contributors).
+To set the proper environment, source the `source.sh` file
 
-Spack was created by Todd Gamblin, tgamblin@llnl.gov.
+```bash
+source ${SPACK_ROOT_EPCC}/source.sh
+```
 
-### Citing Spack
+These will make use of the `${SPACK_ROOT_EPCC}` and `${SPACK_ROOT}` environment variables.
 
-If you are referencing Spack in a publication, please cite the following paper:
+In order to create the user installation repeat the whole installation and configuration process, but in a different `${SPACK_ROOT_EPCC}` folder and use the `user_install` configuration files instead of `central_install`.
+You will also need to point the user installation to the central installation by modifying the `upstreams.yaml` file in the `user_install/config` subdirectory.
 
- * Todd Gamblin, Matthew P. LeGendre, Michael R. Collette, Gregory L. Lee,
-   Adam Moody, Bronis R. de Supinski, and W. Scott Futral.
-   [**The Spack Package Manager: Bringing Order to HPC Software Chaos**](https://www.computer.org/csdl/proceedings/sc/2015/3723/00/2807623.pdf).
-   In *Supercomputing 2015 (SC’15)*, Austin, Texas, November 15-20 2015. LLNL-CONF-669890.
 
-On GitHub, you can copy this citation in APA or BibTeX format via the "Cite this repository"
-button. Or, see the comments in `CITATION.cff` for the raw BibTeX.
 
-License
-----------------
+These configuration can be overriden by the user by calling spack with `-C custom_config_folder` option, where `custom_config_folder` is a directory containing `.yaml` configuration files for spack.
 
-Spack is distributed under the terms of both the MIT license and the
-Apache License (Version 2.0). Users may choose either license, at their
-option.
+The archer2repo folder contains patches for broken packages on Archer2. Currently ( 09-04-24 ) a patch to cmake ( to findBlas.cmake , so that libsci is recognized ) and to quantum espresso are present.
 
-All new contributions must be made under both the MIT and Apache-2.0
-licenses.
 
-See [LICENSE-MIT](https://github.com/spack/spack/blob/develop/LICENSE-MIT),
-[LICENSE-APACHE](https://github.com/spack/spack/blob/develop/LICENSE-APACHE),
-[COPYRIGHT](https://github.com/spack/spack/blob/develop/COPYRIGHT), and
-[NOTICE](https://github.com/spack/spack/blob/develop/NOTICE) for details.
+## Verified software
+The current status of spack packages.
 
-SPDX-License-Identifier: (Apache-2.0 OR MIT)
-
-LLNL-CODE-811652
+software | spack package | builds | runs  | compiler
+------- | --------| -------- | --------- | -------- |
+CASTEP | No  | | |
+Code_Saturne | No | | |
+CP2K | Yes | Yes | |
+Py-ChemShell/Tcl-ChemShell | | | |
+FHI-aims | No | | |
+Gromacs | Yes | Yes | | gnu
+Lammps |Yes | Yes | | gnu
+namd | Yes | No ( manual fetching of source code required) | | | 
+nektar++ | | | | |
+nemo | No | | | | 
+nwchem | Yes | | | |
+onetep | no  | | | |
+openfoam | Yes | Yes | | |
+quantum espresso | Yes | Yes ( patched ) | Yes| gnu
+vasp | yes | | |
+crystal | no  | | |
+petsc | | |
+scotch | Yes | |
+trilinos | | |
+parmetis | | |
+pytorch | Yes | no ( metadata generation failed) | | gnu |
+tensorflow | | | | |
 
